@@ -36,6 +36,8 @@ diceroll <- function(n){
 
 # Preface {-}
 
+Test test test
+
 This is a companion webpage for the course ECON30130 Econometrics at University College Dublin (UCD). The website provides students with the opportunity to explore and deepen their knowledge of some of the key concepts covered in the course. I will work a lot with visualisations and dashboards, which should help students to develop intuition about econometric techniques. 
 The webpage is a complement to and not a substitute for the textbook, lecture slides or lecture attendance. 
 

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Statistics Refresher | Course Webpage ECON30130 ECONOMETRICS</title>
+  <meta name="description" content="1 Statistics Refresher | Course Webpage ECON30130 ECONOMETRICS" />
+  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Statistics Refresher | Course Webpage ECON30130 ECONOMETRICS" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Statistics Refresher | Course Webpage ECON30130 ECONOMETRICS" />
+  
+  
+  
+
+<meta name="author" content="Benjamin Elsner" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="preface.html"/>
+<link rel="next" href="linear-regression.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #2a211c;
+    color: #bdae9d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #bdae9d;  padding-left: 4px; }
+div.sourceCode
+  { color: #bdae9d; background-color: #2a211c; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffff00; } /* Alert */
+code span.an { color: #0066ff; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #44aa43; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #43a8ed; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #049b0a; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #0066ff; font-weight: bold; font-style: italic; } /* Comment */
+code span.do { color: #0066ff; font-style: italic; } /* Documentation */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.dv { color: #44aa43; } /* DecVal */
+code span.er { color: #ffff00; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #44aa43; } /* Float */
+code span.fu { color: #ff9358; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #0066ff; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #43a8ed; font-weight: bold; } /* Keyword */
+code span.op { } /* Operator */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.sc { color: #049b0a; } /* SpecialChar */
+code span.ss { color: #049b0a; } /* SpecialString */
+code span.st { color: #049b0a; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #049b0a; } /* VerbatimString */
+code span.wa { color: #ffff00; font-weight: bold; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="statistics-refresher.html"><a href="statistics-refresher.html"><i class="fa fa-check"></i><b>1</b> Statistics Refresher</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="statistics-refresher.html"><a href="statistics-refresher.html#lingo-estimators-estimates-and-all-that"><i class="fa fa-check"></i><b>1.1</b> Lingo: Estimators, Estimates and all that</a></li>
+<li class="chapter" data-level="1.2" data-path="statistics-refresher.html"><a href="statistics-refresher.html#the-sampling-distribution"><i class="fa fa-check"></i><b>1.2</b> The Sampling Distribution</a></li>
+<li class="chapter" data-level="1.3" data-path="statistics-refresher.html"><a href="statistics-refresher.html#the-law-of-large-numbers-and-consistency-of-an-estimator"><i class="fa fa-check"></i><b>1.3</b> The Law of Large Numbers and Consistency of an Estimator</a></li>
+<li class="chapter" data-level="1.4" data-path="statistics-refresher.html"><a href="statistics-refresher.html#unbiasedness-and-consistency-of-an-estimator"><i class="fa fa-check"></i><b>1.4</b> Unbiasedness and Consistency of an Estimator</a></li>
+<li class="chapter" data-level="1.5" data-path="statistics-refresher.html"><a href="statistics-refresher.html#the-central-limit-theorem"><i class="fa fa-check"></i><b>1.5</b> The Central Limit Theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>2</b> Linear Regression</a></li>
+<li class="chapter" data-level="3" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>3</b> Statistical Inference</a></li>
+<li class="chapter" data-level="4" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>4</b> Multiple Regression</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="multiple-regression.html"><a href="multiple-regression.html#r-markdown"><i class="fa fa-check"></i><b>4.1</b> R Markdown</a></li>
+<li class="chapter" data-level="4.2" data-path="multiple-regression.html"><a href="multiple-regression.html#including-plots"><i class="fa fa-check"></i><b>4.2</b> Including Plots</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Course Webpage ECON30130 ECONOMETRICS</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="statistics-refresher" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Statistics Refresher<a href="statistics-refresher.html#statistics-refresher" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This chapter covers statistical concepts that are central in any statistical analysis. We will use the example of dice rolls to develop an intuition for these concepts.</p>
+<div id="lingo-estimators-estimates-and-all-that" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Lingo: Estimators, Estimates and all that<a href="statistics-refresher.html#lingo-estimators-estimates-and-all-that" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In most (if not all) statistical analyses, we want to learn something about a <strong>population of interest</strong>. The population of interest does not need to be the actual population of a country or the world, but it can also be a very specific population such as all students in this course, all people below age 25, all countries (or only those with a GDP less than 20k€), etc. However, using the entire population for an analysis is usually not practical and often impossible. For example, if you were to do a blood test with the entire population – all the blood in a patient’s body – you would get the best possible information about the population of interest, but you can also be sure that the patient won’t survive the test. For this reason, blood tests are based on a small sample of blood. As we will learn, much can be learned from relatively small samples about the population.</p>
+<p>Within the population of interest, we are typically interested in a particular statistic – which is sometimes called <strong>target parameter</strong> or <strong>quantity of interest</strong> or <strong>population statistic</strong> or <strong>estimand</strong>. Your doctor wants to know the concentration of certain biomarkers in all your blood cells. As a policy analyst, we want to know the impact of childcare subsidies on child development, etc. These are examples of population statistics we are interested in.</p>
+<p>If our analysis is based on a sample rather than the population, we say that we <strong>estimate</strong> these population statistics. This means that we compute the same statistic in our sample. The procedure we use to do this is called <strong>estimator</strong> and the result, i.e. the statistic computed from the sample, is called <strong>estimate</strong>. Once we obtained an estimate, we use insights from statistics to assess how much we can learn from this estimate about the population statistic we are interested in.</p>
+<p>For example, we may be interested in the population mean <span class="math inline">\(\mu_Y\)</span>. We can draw a random sample of size <span class="math inline">\(n\)</span> from the population and estimate the population mean using the formula for the sample mean,</p>
+<p><span class="math display" id="eq:mean">\[\begin{equation}
+\overline{Y}=\frac{1}{n}\displaystyle\sum_{i=1}^n Y_i. 
+\tag{1.1}
+\end{equation}\]</span></p>
+<p>The formula in Equation ((eq:mean)) is the <strong>estimator</strong> for the population mean <span class="math inline">\(\mu_Y\)</span>. If we apply the estimator to a <strong>particular</strong> sample <span class="math inline">\(s\)</span>, we obtain an <strong>estimate</strong> <span class="math inline">\(\overline{Y_s}\)</span>for the sample <span class="math inline">\(s\)</span>. If we were to draw another sample <span class="math inline">\(t \neq s\)</span>, we use the same estimator but obtain a different estimate <span class="math inline">\(\overline{Y_t}\)</span>.</p>
+<div class="blackbox">
+<div class="center">
+<p><strong>Definition: Estimator and Estimate</strong></p>
+</div>
+<p>An <strong>estimator</strong> is a procedure that is used for calculating an estimate for a quantity of of interest based on a sample from the population of interest.</p>
+<p><strong>In plain English</strong>: An estimator is to an estimate what a recipe is to a cake. Suppose we want to bake a chocolate cake (that’s the quantity, or in that case rather the object of interest). We then use recipe that tells us how we convert the ingredients into a chocolate cake. The recipe is the equivalent of the estimator. When we do this, we hopefully get a tasty chocolate cake, which is the estimate. But every time we do this, we get a cake that tastes slightly different. It’s the same with estimators. Not that we know what they taste like, but we get a different estimate every time we apply the same estimator to a different sample.</p>
+</div>
+</div>
+<div id="the-sampling-distribution" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> The Sampling Distribution<a href="statistics-refresher.html#the-sampling-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The sampling distribution is central to any statistical analysis. After all, we typically cannot analyse the entire population of interest but have to draw inference from a smaller random sample. As we will see, there is a lot that can be learned about the population even from a medium-sized random sample. However, an analysis that is based on random sampling comes with the challenge that every random sample will yield different estimates. Suppose we wanted to estimate the mean height of students at UCD. If we draw five students at random and calculate the mean height of these students, we may end up with an estimate that is larger than the true mean – if we happen to disproportionately sample taller students – or smaller than the true mean – if we happen to disproportionately sample shorter students. If we draw many such samples and compute the mean in each sample, we will likely get a different mean height in each sample. <strong>The distribution of these means is called the sampling distribution.</strong></p>
+<div class="blackbox">
+<div class="center">
+<p><strong>Definition: Sampling Distribution</strong></p>
+</div>
+<p><strong>Wikipedia says</strong>: <em>A sampling distribution or finite-sample distribution is the probability distribution of a given random-sample-based statistic.</em></p>
+<p><strong>In plain English</strong>: Suppose we draw many random samples and in each sample we compute the same statistic (for example the mean, variance, minimum or maximum). The distribution of these statistics across all samples is called the sampling distribution.</p>
+</div>
+<p>When students encounter the sampling distribution for the first time, they tend to struggle with this concept. To illustrate what the sampling distribution is, where it comes from and what it is useful for, we will consider <strong>dice rolls</strong>. If we have a fair dice, the <strong>expected number of points is 3.5</strong>. This is the case because each side comes up with a probability of <span class="math inline">\(1/6\)</span>, and thus <strong>the (population) mean is</strong></p>
+<p><span class="math display">\[\begin{equation*}
+\mu_Y=\frac{1}{6}\times \left(1 + 2 + 3 + 4 + 5 + 6\right)=3.5.
+\end{equation*}\]</span></p>
+<p>This mean is what we will get if we roll a dice an infinite number of times and calculate the mean across all rolls. But that’s a theoretical quantity. No one can actually roll a dice so many times. The real question here is what happens if we roll a dice a finite number of times and take the mean.</p>
+<div id="sampling-distribution-in-very-small-samples" class="section level3 unnumbered hasAnchor">
+<h3>Sampling distribution in very small samples<a href="statistics-refresher.html#sampling-distribution-in-very-small-samples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s start with a small sample size: we roll two dice, compute the mean, roll two dice, compute the mean, and so on. Figure <a href="statistics-refresher.html#fig:diceroll2">1.1</a> shows the result of this exercise with 200 samples (i.e. 200 times we roll two dice and compute the mean). The orange panels at the top show the points of the two dice. With every sample of size two, we add a new mean to the distribution shown in the panel at the bottom (the grey line highlights where in the distribution the new mean falls).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:diceroll2"></span>
+<img src="coursepage_files/diceroll2.gif" alt="Sampling Distribution: Two Dice Rolls per Sample" width="40%" />
+<p class="caption">
+Figure 1.1: Sampling Distribution: Two Dice Rolls per Sample
+</p>
+</div>
+<p>The distribution that emerges – the sampling distribution – is quite interesting. The distribution seems to be fairly symmetric around the population mean of 3.5, and there are more samples with means between 2 and 4 and fewer with means smaller than 2 or larger than 4. This distribution should not come as a surprise because there are more combinations that yield a sample mean of 3.5 – <span class="math inline">\(\{3,4\}\)</span>, <span class="math inline">\(\{2,5\}\)</span>, <span class="math inline">\(\{1,6\}\)</span> all yield a sample mean of 3.5, whereas a sample mean of 1 can only occur with the combination <span class="math inline">\(\{1,1\}\)</span>.</p>
+</div>
+<div id="sampling-distribution-in-larger-samples" class="section level3 unnumbered hasAnchor">
+<h3>Sampling distribution in larger samples<a href="statistics-refresher.html#sampling-distribution-in-larger-samples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now consider slightly larger samples. In Figure <a href="statistics-refresher.html#fig:diceroll10">1.2</a> the sample size is ten dice rolls.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:diceroll10"></span>
+<img src="coursepage_files/diceroll10.gif" alt="Sampling Distribution: 10 Dice Rolls per Sample" width="40%" />
+<p class="caption">
+Figure 1.2: Sampling Distribution: 10 Dice Rolls per Sample
+</p>
+</div>
+<p>As was the case with samples of two dice rolls, we get a sampling distribution that is roughly symmetric around 3.5 and has a bell shape. What is different is that the distribution is a lot tighter around 3.5, which means that there are fewer extreme values than with samples of two dice. This should not be surprising. Consider a sample mean of 1, which only occurs if all dice yield one point. When we roll two dice, it is a lot more likely to have all ones than when we roll ten dice.</p>
+<p>In Figure <a href="statistics-refresher.html#fig:diceroll100">1.3</a> we go even further and roll 100 dice at a time. Think about this like us pouring a bucket with 100 dice on the floor, calculating the mean, putting the dice back into the bucket, and starting again. Luckily, we can do this on a computer and don’t have to waste our time returning dice to a bucket.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:diceroll100"></span>
+<img src="coursepage_files/diceroll100.gif" alt="Sampling Distribution: 100 Dice Rolls per Sample" width="40%" />
+<p class="caption">
+Figure 1.3: Sampling Distribution: 100 Dice Rolls per Sample
+</p>
+</div>
+<p>Again, the same picture emerges, namely a bell-shaped sampling distribution that is centered on the population mean of 3.5. With a sample size of 100, almost all samples have a mean close to 3.5.
+And if we were to increase the sample size even further, the sampling distribution would be even tighter around the population mean of 3.5.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:histsampling"></span>
+<img src="coursepage_files/figure-html/histsampling-1.png" alt="Sampling Distribution of Means (2, 10, 100 dice rolls, 200 samples each)" width="672" />
+<p class="caption">
+Figure 1.4: Sampling Distribution of Means (2, 10, 100 dice rolls, 200 samples each)
+</p>
+</div>
+<p>In Figure <a href="statistics-refresher.html#fig:histsampling">1.4</a>, we can see the histograms of the three sampling distributions. The center of all distributions is close to the expected value of <span class="math inline">\(3.5\)</span>. The distribution of the smallest sample size (2 dice rolls) is very wide whereas the distribution of samples with 100 dice rolls is fairly tight.</p>
+<div class="blackbox">
+<div class="center">
+<p><strong>Key Observation</strong></p>
+</div>
+<p><strong>As the sample size <span class="math inline">\(n\)</span> increases</strong></p>
+<ul>
+<li>the <em>mean of each sample</em> gets <em>closer to the expected value</em> of <span class="math inline">\(3.5\)</span></li>
+<li>the <em>sampling distribution</em> of the means becomes tighter around the expected value of <span class="math inline">\(3.5\)</span></li>
+</ul>
+<div class="center">
+<p><strong>Explanation</strong></p>
+</div>
+<p>With a <em>small sample size <span class="math inline">\(n\)</span></em>, any particular sample may be very different from the population (where each side of the dice is equally likely to occur). We may have samples with only ones or only sixes.
+As the <em>sample size <span class="math inline">\(n\)</span> increases</em> each individual sample looks more and more similar to the population and, thus, the sample mean becomes more similar to the population mean. This means that <strong>if we have a larger sample, we can be more confident</strong> that this sample can teach us something about the population.</p>
+</div>
+<p><span class="math display">\[\\[0.3cm]\]</span></p>
+<p>The question is when is a sample <em>large enough</em>? The answer to this question unfortunately is <em>it depends</em>. We will later learn that samples greater than <span class="math inline">\(30\)</span> tend to have favourable properties, but in empirical applications we would need much greater samples than that.</p>
+</div>
+</div>
+<div id="the-law-of-large-numbers-and-consistency-of-an-estimator" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> The Law of Large Numbers and Consistency of an Estimator<a href="statistics-refresher.html#the-law-of-large-numbers-and-consistency-of-an-estimator" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>What we observed in Figure <a href="statistics-refresher.html#fig:histsampling">1.4</a> is the result of the <strong>Law of Large Numbers (LLN)</strong>. According to the LLN, if we take an infinite number of random samples and take the sample mean <span class="math inline">\(\overline{Y}\)</span> in each sample, then the average of all sample means, <span class="math inline">\(E(\overline{Y})\)</span> converges to the true population mean <span class="math inline">\(\mu_Y\)</span>.</p>
+<p>We can see this in Figure <a href="statistics-refresher.html#fig:histsampling">1.4</a>. Even with 200 small samples of size 2, the mean of the distribution is close to 3.5. If we were to draw more samples, it would get even closer to the population mean of 3.5. The LLN also implies that as the sample size <span class="math inline">\(n\)</span> increases, each sample mean has a higher probability of being close to the population mean <span class="math inline">\(\mu_Y\)</span>. We can see this in Figure <a href="statistics-refresher.html#fig:histsampling">1.4</a>: the larger <span class="math inline">\(n\)</span> is, the tigther is the distribution around the population mean of 3.5. If the sample was infinitely large, the distribution would collapse onto the vertical line at the population mean of 3.5.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:llngraph"></span>
+<img src="coursepage_files/lln.gif" alt="Illustration of the LLN" width="50%" />
+<p class="caption">
+Figure 1.5: Illustration of the LLN
+</p>
+</div>
+<p>Figure <a href="statistics-refresher.html#fig:llngraph">1.5</a> illustrates the LLN based on dice rolls with sample sizes 2, 10, 50, 100 and 1000. Each dot is a sample mean, and if two samples have a similar mean we draw dots next to each other. For each sample size, we draw 200 samples. Again, we can make two observations that reflect the LLN:</p>
+<ul>
+<li>no matter what the sample size is, the mean of the distribution is close to the population mean (grey line). You can see this because all distributions are roughly symmetric around 3.5.</li>
+<li>As the sample size gets larger, the individual sample means are getting closer to the population mean.</li>
+</ul>
+</div>
+<div id="unbiasedness-and-consistency-of-an-estimator" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Unbiasedness and Consistency of an Estimator<a href="statistics-refresher.html#unbiasedness-and-consistency-of-an-estimator" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Both results of the LLN are key ingredients for two (desirable) properties of estimators: these are <strong>unbiasedness</strong> and <strong>consistency</strong></p>
+<p>The latter result – that sample means converge to the population mean as <span class="math inline">\(n\)</span> gets larger – is a key ingredient for consistency</p>
+</div>
+<div id="the-central-limit-theorem" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> The Central Limit Theorem<a href="statistics-refresher.html#the-central-limit-theorem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="preface.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="linear-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": false,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

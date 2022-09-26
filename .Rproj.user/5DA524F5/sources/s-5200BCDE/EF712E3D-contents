@@ -16,7 +16,7 @@ pre code {
 
 .blackbox {
   padding: 1em;
-  background: rgb(249, 208, 162);
+  background: orange;
   color: black;
   border: 2px solid orange;
   border-radius: 10px;

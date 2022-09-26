@@ -41,6 +41,6 @@ Backup[ ]of[ ]*.numbers/
 
 # Folders
 
-Rproj.user/
+.Rproj.user/
 _book/
 _bookdown_files/

@@ -179,7 +179,12 @@ We can see this in Figure \@ref(fig:histsampling). Even with 200 small samples o
 knitr::include_graphics('_bookdown_files/lln.gif')
 ```
 
-Figure \@ref(fig:llngraph) illustrates the LLN based on dice rolls with sample sizes 2, 10, 50, 100 and 1000. Each dot is a sample mean, and if two samples have a similar mean we draw dots next to each other. For each sample size, we draw 200 samples. Again, we can make two observations that reflect the LLN: 
+Figure \@ref(fig:llngraph) illustrates the LLN based on dice rolls with sample sizes 2, 10, 50, 100 and 1000. Each dot is a sample mean, and if two samples have a similar mean we draw dots next to each other. For each sample size, we draw 200 samples. Again, we can make **two observations that reflect the LLN**: 
 
-- no matter what the sample size is, the mean of the distribution is close to the population mean (grey line). You can see this because all distributions are roughly symmetric around 3.5.
-- As the sample size gets larger, the individual sample means are getting closer to the population mean.
+- no matter what the sample size is, the **mean of the distribution is close to the population mean (grey line)**. You can see this because all distributions are roughly symmetric around 3.5.
+- As the **sample size gets larger**, the individual **sample means are getting closer to the population mean**, i.e. the distribution becomes tighter around the population mean. 
+
+
+## The Central Limit Theorem
+
+

@@ -1,0 +1,178 @@
+###########################################
+# This file: animations of a dice roll
+
+
+
+set.seed(12345)
+
+library(reshape2)
+library(ggplot2)
+library(ggpubr)
+library(colorspace)
+library(dplyr)
+library(magick)
+library(gganimate)
+library(gifski)
+library(purrr)
+
+
+### PARAMETERS
+rm(list=ls())
+
+
+n <- 2         # sample size
+nsamples <-200   # nr of samples
+ucd <- 0        # 0 for mac, 1 for ucd pc
+framespersec <- 2
+frameheight <- 480
+framewidth <- 480
+
+
+if (ucd==0){
+  path <- "/Users/ben_elsner/econometrics-ug"
+}
+
+
+
+### FUNCTIONS and THEMES
+
+diceroll <- function(n){
+  dice <- sample(1:6, size = n, replace = TRUE)
+  return(dice)
+}
+
+
+minimaltheme <-theme(axis.text.x=element_blank(),
+                     axis.text.y=element_blank(),
+                     axis.title.x=element_blank(),
+                     axis.title.y=element_blank(),
+                     axis.ticks = element_blank(),
+                     panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(),
+                     panel.border = element_blank(),
+                     panel.background = element_blank())
+
+
+#################
+# Test of gganimate
+
+
+## Datasets
+dicedata = as.data.frame(matrix(nrow=n*nsamples,ncol=4))
+colnames(dicedata) = c("sample","roll", "row", "value")
+
+for(i in 1:nsamples){
+  for(j in 1:n){
+    dicedata$sample[(i-1)*n+j]=i
+    dicedata$roll[(i-1)*n+j]=j%%10
+    dicedata$row[(i-1)*n+j]=ceiling(j/10)
+    dicedata$value[(i-1)*n+j]=diceroll(1)
+  }
+}
+dicedata$roll[dicedata$roll==0]<-10
+
+
+
+meandata <- dicedata %>%
+  group_by(sample) %>%
+  summarize(mean(value))
+colnames(meandata)=c("sample", "meanvalue")
+
+histdata <- meandata %>%
+  split(.$sample) %>% 
+  accumulate(~ bind_rows(.x, .y)) %>% 
+  bind_rows(.id = "frame") %>% 
+  mutate(frame = as.integer(frame))
+
+histdata <- histdata %>% group_by(frame) %>%
+  mutate(lastmean=meanvalue[sample==max(sample)])
+
+histfinal <- histdata %>% filter(frame==nsamples)
+saveRDS(histfinal, file = paste("histfinal", n, ".rds", sep=""))
+
+
+## GRAPHS
+
+dicegraph <- ggplot(dicedata, aes(x = roll, y=-row, group=sample)) + 
+  ggtitle(paste("Sample size: ", n, sep=""))+
+  geom_tile(aes(fill=value), show.legend=FALSE) + 
+  coord_equal()+
+  scale_fill_gradient(low="grey90", high= "darkorange2") +
+  theme_bw() + minimaltheme + theme(plot.margin=margin(-5,0,-5,0,"cm"),
+                                    plot.title = element_text(size=30, face = "bold")) +
+  geom_text(size=10, aes(label=value), fontface="bold")+
+  transition_states(sample, transition_length = 0.1, state_length = 0.5)+
+  ease_aes('cubic-in-out')
+
+
+dicegif <- animate(dicegraph, fps=framespersec, width = frameheight, height = framewidth, renderer=gifski_renderer(paste(path, "/GIFs/dicegraph.gif", sep="")))
+
+
+# meangraph <- ggplot(meandata, aes(meandata$meanvalue, 1, group=sample)) +
+#   #annotate(geom="text", x=meandata$meanvalue[1], y=1.025, label=paste("Mean: ", meandata$meanvalue[1], sep=""))+
+#   annotate(geom="text", x=1, 0.975, label="1")+
+#   annotate(geom="text", x=6, 0.975, label="6")+
+#   annotate(geom="text", x=3.5, 0.975, label="3.5")+
+#   geom_pointrange(aes(xmin = 1, xmax = 6), size = 1.5) +
+#   geom_errorbar(aes(xmin = 1, xmax = 6), 
+#                 size = 1.25, 
+#                 width = 0.025) +
+#   geom_segment(aes(x = 3.5, y =0.985, xend = 3.5, yend = 1.015), size = 1.25)+
+#   geom_point(size = 2, colour = "darkorange2", shape=19, stroke = 5) +
+#   ylim(0.8, 1.2) +
+#   theme_bw() + minimaltheme + theme(plot.margin=margin(-5,0,-10,0,"cm"))+
+#   transition_states(sample, transition_length = 0.1, state_length = 0.1)+
+#   ease_aes('cubic-in-out')
+# 
+# meangif <- animate(meangraph, width = 240, height = 240, renderer=gifski_renderer(paste(path, "/GIFs/meangraph.gif", sep="")))
+
+histogram <- ggplot(histdata, aes(x=meanvalue, group=frame)) + 
+  geom_histogram(binwidth=0.1, fill="darkorange2")+
+  geom_vline(aes(xintercept = histdata$lastmean), size=3, colour="darkgrey", linetype="dotted")+
+  geom_vline(aes(xintercept = 3.5, yintercept=0), size=2, colour="black")+
+  scale_x_continuous(breaks = seq(1, 6, 1), lim = c(1,6))+
+  theme(axis.text.y=element_blank(),
+        axis.title.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(face="bold", size=25),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_blank(),
+        plot.margin=margin(0, 0, 0, 0,"cm"))+
+  geom_hline(yintercept = 0, size=1)+
+  transition_states(frame, transition_length = 0.1, state_length = 0.5)+
+  ease_aes('cubic-in-out')
+
+histgif <- animate(histogram, fps=framespersec, width = frameheight, height = framewidth, renderer=gifski_renderer(paste(path, "/GIFs/histgraph.gif", sep="")))
+
+
+a_mgif <- image_read(paste(path, "/GIFs/dicegraph.gif", sep=""))
+#b_mgif <- image_read(paste(path, "/GIFs/meangraph.gif", sep=""))
+c_mgif <- image_read(paste(path, "/GIFs/histgraph.gif", sep=""))
+
+nimages <- min(dim(image_info(a_mgif))[1], dim(image_info(c_mgif))[1])
+
+
+i=1
+new_gif <- image_append(c(a_mgif[i], c_mgif[i]), stack=TRUE)
+# new_gif <- image_append(c(image_append(c(a_mgif[i], b_mgif[i]), stack=TRUE), c_mgif[i]))
+#new_gif <- image_flatten(combined)
+
+for(i in 2:nimages){
+  combined <- image_append(c(a_mgif[i], c_mgif[i]), stack=TRUE)
+  new_gif <- c(new_gif, combined)
+}    
+
+
+# for(i in 2:nimages){
+#   combined <- image_append(c(b_mgif[i], c_mgif[i]))
+#   fullcombined <- image_append(c(a_mgif[i], image_flatten(combined)), stack=TRUE)      
+#   new_gif <- c(new_gif, fullcombined)
+# }    
+
+anim_save(paste(path, "/GIFs/diceroll", n, ".gif", sep=""), new_gif)   
+anim_save(paste(path, "/Course Page/coursepage_files/diceroll", n, ".gif", sep=""), new_gif) 
+snapshot_dice <- image_append(c(a_mgif[7], c_mgif[7]), stack=TRUE)
+

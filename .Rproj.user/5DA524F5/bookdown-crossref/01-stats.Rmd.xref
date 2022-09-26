@@ -9,4 +9,5 @@ fig:diceroll100 Sampling Distribution: 100 Dice Rolls per Sample
 fig:histsampling Sampling Distribution of Means (2, 10, 100 dice rolls, 200 samples each)
 h2:the-law-of-large-numbers-and-consistency-of-an-estimator The Law of Large Numbers and Consistency of an Estimator
 fig:llngraph Illustration of the LLN
+h2:the-central-limit-theorem The Central Limit Theorem
 

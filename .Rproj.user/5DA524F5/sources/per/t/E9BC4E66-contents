@@ -1,0 +1,189 @@
+###########################################
+# This file: illustration of the CLT
+
+
+
+set.seed(12345)
+
+library(reshape2)
+library(ggplot2)
+library(ggpubr)
+library(colorspace)
+library(dplyr)
+library(magick)
+library(gganimate)
+library(gifski)
+library(purrr)
+library(transformr)
+
+
+### PARAMETERS
+rm(list=ls())
+
+
+#n <- 2       # sample size
+nsamples <-200   # nr of samples
+ucd <- 0        # 0 for mac, 1 for ucd pc
+framespersec <- 2
+frameheight <- 480
+framewidth <- 480
+
+
+if (ucd==0){
+  path <- "/Users/ben_elsner/econometrics-ug"
+}
+
+
+## Variance of dice roll
+
+vardata <- data.frame(points=seq(1,6), weight=1/6)
+vardata <- vardata %>% mutate(varline = (points-3.5)^2*weight)
+vardice <- sum(vardata$varline)
+sddice <- sqrt(vardice)
+
+
+
+
+## Datasets: functions
+
+
+dicesample <- function(n, nsamples){
+  dicedata <- data.frame(sample=rep(1:nsamples, each=n), value=sample(1:6, size=nsamples*n, replace = TRUE))
+  dicedata <- dicedata %>% group_by(sample) %>% mutate(roll=row_number()%%10)
+  dicedata$roll[dicedata$roll==0]<-10
+  dicedata <- dicedata %>% group_by(sample) %>% mutate(row=rep(1:ceiling(n/10), each=10, length.out=n))
+  return(dicedata)
+}
+
+
+histdataprep <- function(dicedata, n, sddice){
+  meandata <- dicedata %>%
+    group_by(sample) %>%
+    summarize(mean=mean(value)) %>%
+    mutate(zmean=(mean-3.5)/(sddice/sqrt(n)))
+  colnames(meandata)=c("sample", "meanvalue", "stsamplemean")
+  
+  histdata <- meandata %>%
+    split(.$sample) %>% 
+    accumulate(~ bind_rows(.x, .y)) %>% 
+    bind_rows(.id = "frame") %>% 
+    mutate(frame = as.integer(frame))
+  
+  histdata <- histdata %>% group_by(frame) %>%
+    mutate(lastmean=meanvalue[sample==max(sample)])  
+  return(histdata)
+}
+  
+
+
+## Graphs: functions
+
+dicegraphfun <- function(dicedata, n){
+  dicegraph <- ggplot(dicedata, aes(x = roll, y=-row, group=sample)) + 
+    ggtitle(paste("Sample size: ", n, sep=""))+
+    geom_tile(aes(fill=value), show.legend=FALSE) + 
+    coord_equal()+
+    scale_fill_gradient(low="grey90", high= "darkorange2") +
+    theme_bw() + theme(plot.margin=margin(-5,0,-5,0,"cm"),axis.text.x=element_blank(),
+                                      axis.text.y=element_blank(),
+                                      axis.title.x=element_blank(),
+                                      axis.title.y=element_blank(),
+                                      axis.ticks = element_blank(),
+                                      panel.grid.major = element_blank(),
+                                      panel.grid.minor = element_blank(),
+                                      panel.border = element_blank(),
+                                      panel.background = element_blank(),
+                                    plot.title = element_text(size=30, face = "bold")) +
+    geom_text(size=10, aes(label=value), fontface="bold")+
+    transition_states(sample, transition_length = 0.1, state_length = 0.5)+
+    ease_aes('cubic-in-out')
+  return(dicegraph)
+  }
+
+
+histfun <- function(histdata, sddice, n, xrange){
+  histogram <- ggplot(histdata, aes(x=meanvalue, group=frame)) + 
+    geom_histogram(aes(y=..density..), binwidth=0.1, fill="darkorange2")+
+    geom_vline(aes(xintercept = histdata$lastmean), size=3, colour="darkgrey", linetype="dotted")+
+    geom_vline(aes(xintercept = 3.5, yintercept=0), size=2, colour="darkgrey")+
+    stat_function(fun = dnorm, args = list(mean = 3.5, sd = sddice/sqrt(n)), size=2)+
+    scale_x_continuous(breaks = seq(1, 6, 1), lim = xrange)+
+    theme(axis.text.y=element_blank(),
+        axis.title.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(face="bold", size=25),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_blank(),
+        plot.margin=margin(-30, 0, 0, 0,"cm"))+
+    geom_hline(yintercept = 0, size=1)+
+    transition_states(frame, transition_length = 0.1, state_length = 0.5)+
+    ease_aes('cubic-in-out')
+  return(histogram)
+}
+
+
+## Produce Gifs
+
+
+
+producegif <- function(n, xrange){
+  dicedata <- dicesample(n, nsamples)
+  histdata <- histdataprep(dicedata, n, sddice)  
+  dicegraph <- dicegraphfun(dicedata, n)
+  dicegif <- animate(dicegraph, fps=framespersec, width = frameheight, height = framewidth, renderer=gifski_renderer(paste(path, "/GIFs/diceclt.gif", sep="")))
+
+  histogram <- histfun(histdata, sddice, n, xrange)
+  histgif <- animate(histogram, fps=framespersec, width = frameheight, height = framewidth, renderer=gifski_renderer(paste(path, "/GIFs/histclt.gif", sep="")))
+
+  a_mgif <- image_read(paste(path, "/GIFs/diceclt.gif", sep=""))
+  c_mgif <- image_read(paste(path, "/GIFs/histclt.gif", sep=""))
+
+  nimages <- min(dim(image_info(a_mgif))[1], dim(image_info(c_mgif))[1])
+
+  i=1
+  new_gif <- image_append(c(a_mgif[i], c_mgif[i]), stack=TRUE)
+
+  for(i in 2:nimages){
+    combined <- image_append(c(a_mgif[i], c_mgif[i]), stack=TRUE)
+    new_gif <- c(new_gif, combined)
+  }    
+
+  anim_save(paste(path, "/GIFs/diceclt", n, ".gif", sep=""), new_gif)   
+}
+
+## Graph 1: n=2
+
+n=2
+xrange <- c(1,6)
+producegif(n, xrange)
+
+## Graph 2: n=10
+
+n=10
+xrange <- c(2,5)
+producegif(n, xrange)
+
+
+## Graph 3: n=20
+
+n=20
+xrange <- c(2.5, 4.5)
+producegif(n, xrange)
+
+
+## Graph 4: n=50
+
+n=50
+xrange <- c(2.5, 4.5)
+producegif(n, xrange)
+
+
+########################Gif with N(0,1)
+
+
+
+
+

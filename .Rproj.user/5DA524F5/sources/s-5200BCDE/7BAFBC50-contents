@@ -36,7 +36,6 @@ diceroll <- function(n){
 
 # Preface {-}
 
-Test test test
 
 This is a companion webpage for the course ECON30130 Econometrics at University College Dublin (UCD). The website provides students with the opportunity to explore and deepen their knowledge of some of the key concepts covered in the course. I will work a lot with visualisations and dashboards, which should help students to develop intuition about econometric techniques. 
 The webpage is a complement to and not a substitute for the textbook, lecture slides or lecture attendance. 
@@ -51,6 +50,7 @@ Some key concepts have been explained and visualised much better by other econom
 The website has been created by Benjamin Elsner. For any feedback, please email benjamin(dot)elsner(at)ucd.ie. 
 
 
+<!--
 # Statistics Refresher
 
 This chapter covers statistical concepts that are central in any statistical analysis. We will use the example of dice rolls to develop an intuition for these concepts. 
@@ -236,7 +236,7 @@ Figure \@ref(fig:llngraph) illustrates the LLN based on dice rolls with sample s
 
 - no matter what the sample size is, the mean of the distribution is close to the population mean (grey line). You can see this because all distributions are roughly symmetric around 3.5.
 - As the sample size gets larger, the individual sample means are getting closer to the population mean. 
-
+-->
 
 <!--
 ## Unbiasedness and Consistency of an Estimator

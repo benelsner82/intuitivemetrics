@@ -1,0 +1,12 @@
+h1:statistics-refresher Statistics Refresher
+h2:lingo-estimators-estimates-and-all-that Lingo: Estimators, Estimates and all that
+h2:the-sampling-distribution The Sampling Distribution
+h3:sampling-distribution-in-very-small-samples Sampling distribution in very small samples
+fig:diceroll2 Sampling Distribution: Two Dice Rolls per Sample
+h3:sampling-distribution-in-larger-samples Sampling distribution in larger samples
+fig:diceroll10 Sampling Distribution: 10 Dice Rolls per Sample
+fig:diceroll100 Sampling Distribution: 100 Dice Rolls per Sample
+fig:histsampling Sampling Distribution of Means (2, 10, 100 dice rolls, 200 samples each)
+h2:the-law-of-large-numbers-and-consistency-of-an-estimator The Law of Large Numbers and Consistency of an Estimator
+fig:llngraph Illustration of the LLN
+

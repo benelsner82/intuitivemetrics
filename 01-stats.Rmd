@@ -257,7 +257,7 @@ As we can see, the histogram does not converge to the normal distribution. It is
 
 In Figure \ref@(fig:clt10), we consider sample sizes of 10 and 20, respectively. In both cases the histogram moves closer to a normal distribution. Statistical theory tells us that a sample size of 20 is still too small to assume normality. A rule of thumb is that a sample should be larger than 30 observations to justify applying a normal distribution. 
 
-```{r clt10, fig.show = "hold", out.width = "35%", fig.align = "center"}
+```{r clt10, fig.show = "hold", echo=FALSE,  out.width = "35%", fig.align = "center"}
 knitr::include_graphics(c('docs/_bookdown_files/diceclt10.gif', 'docs/_bookdown_files/diceclt20.gif'))
 ```
 
@@ -279,7 +279,7 @@ What we typically do is "standardise" the sampling distribution such that the st
 \frac{\overline{Y}-\mu_Y}{\sigma_Y/(\sqrt{n})} \sim N(0,1). 
 \end{equation*}
 
-When we "standardise" $\overline{Y}$, we ensure that all the sampling distributions have mean zero and a standard deviation of 1, regardless of the characteristics of the underlying random variable $Y$ and the sample size. The reason for doing this is a practical one. If we did not standardise $\overline$, we would have to apply a different normal distribution -- with a different mean and variance -- in every analysis. By standardising, we can move this part to auto-pilot. We can use the same standard normal distribution no matter what we study. 
+When we "standardise" $\overline{Y}$, we ensure that all the sampling distributions have mean zero and a standard deviation of 1, regardless of the characteristics of the underlying random variable $Y$ and the sample size. The reason for doing this is a practical one. If we did not standardise $\overline{Y}$, we would have to apply a different normal distribution -- with a different mean and variance -- in every analysis. By standardising, we can move this part to auto-pilot. We can use the same standard normal distribution no matter what we study. 
 
 
 Figure \ref@(fig:cltall) compares the sampling distribution of dice rolls with varying sample sizes to a normal distribution, N(0,1). Each picture shows the distribution of 1,000 samples of a given size, ranging from n=2 to n=200. Once we have sample sizes of 100 and larger, the histogram gets very close to a normal distribution and it would even get closer if we plotted more than 1,000 samples. 

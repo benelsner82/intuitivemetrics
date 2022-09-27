@@ -23,7 +23,7 @@
 <meta name="author" content="Benjamin Elsner" />
 
 
-<meta name="date" content="2022-09-26" />
+<meta name="date" content="2022-09-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,69 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #2a211c;
+    color: #bdae9d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #bdae9d;  padding-left: 4px; }
+div.sourceCode
+  { color: #bdae9d; background-color: #2a211c; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffff00; } /* Alert */
+code span.an { color: #0066ff; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #44aa43; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #43a8ed; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #049b0a; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #0066ff; font-weight: bold; font-style: italic; } /* Comment */
+code span.do { color: #0066ff; font-style: italic; } /* Documentation */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.dv { color: #44aa43; } /* DecVal */
+code span.er { color: #ffff00; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #44aa43; } /* Float */
+code span.fu { color: #ff9358; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #0066ff; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #43a8ed; font-weight: bold; } /* Keyword */
+code span.op { } /* Operator */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.sc { color: #049b0a; } /* SpecialChar */
+code span.ss { color: #049b0a; } /* SpecialString */
+code span.st { color: #049b0a; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #049b0a; } /* VerbatimString */
+code span.wa { color: #ffff00; font-weight: bold; } /* Warning */
+</style>
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -78,6 +141,7 @@
 <li class="chapter" data-level="1.1" data-path="statistics-refresher.html"><a href="statistics-refresher.html#lingo-estimators-estimates-and-all-that"><i class="fa fa-check"></i><b>1.1</b> Lingo: Estimators, Estimates and all that</a></li>
 <li class="chapter" data-level="1.2" data-path="statistics-refresher.html"><a href="statistics-refresher.html#the-sampling-distribution"><i class="fa fa-check"></i><b>1.2</b> The Sampling Distribution</a></li>
 <li class="chapter" data-level="1.3" data-path="statistics-refresher.html"><a href="statistics-refresher.html#the-law-of-large-numbers-and-consistency-of-an-estimator"><i class="fa fa-check"></i><b>1.3</b> The Law of Large Numbers and Consistency of an Estimator</a></li>
+<li class="chapter" data-level="1.4" data-path="statistics-refresher.html"><a href="statistics-refresher.html#the-central-limit-theorem"><i class="fa fa-check"></i><b>1.4</b> The Central Limit Theorem</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -109,7 +173,7 @@
 <p>If our analysis is based on a sample rather than the population, we say that we <strong>estimate</strong> these population statistics. This means that we compute the same statistic in our sample. The procedure we use to do this is called <strong>estimator</strong> and the result, i.e. the statistic computed from the sample, is called <strong>estimate</strong>. Once we obtained an estimate, we use insights from statistics to assess how much we can learn from this estimate about the population statistic we are interested in.</p>
 <p>For example, we may be interested in the population mean <span class="math inline">\(\mu_Y\)</span>. We can draw a random sample of size <span class="math inline">\(n\)</span> from the population and estimate the population mean using the formula for the sample mean,</p>
 <p><span class="math display" id="eq:mean">\[\begin{equation}
-\overline{Y}=\frac{1}{n}\displaystyle\sum_{i=1}^n Y_i. 
+\overline{Y}=\frac{1}{n}\displaystyle\sum_{i=1}^n Y_i.
 \tag{1.1}
 \end{equation}\]</span></p>
 <p>The formula in Equation ((eq:mean)) is the <strong>estimator</strong> for the population mean <span class="math inline">\(\mu_Y\)</span>. If we apply the estimator to a <strong>particular</strong> sample <span class="math inline">\(s\)</span>, we obtain an <strong>estimate</strong> <span class="math inline">\(\overline{Y_s}\)</span>for the sample <span class="math inline">\(s\)</span>. If we were to draw another sample <span class="math inline">\(t \neq s\)</span>, we use the same estimator but obtain a different estimate <span class="math inline">\(\overline{Y_t}\)</span>.</p>
@@ -135,12 +199,23 @@
 <p><span class="math display">\[\begin{equation*}
 \mu_Y=\frac{1}{6}\times \left(1 + 2 + 3 + 4 + 5 + 6\right)=3.5.
 \end{equation*}\]</span></p>
-<p>This mean is what we will get if we roll a dice an infinite number of times and calculate the mean across all rolls. But that’s a theoretical quantity. No one can actually roll a dice so many times. The real question here is what happens if we roll a dice a finite number of times and take the mean.</p>
+<p>This mean is what we will get if we roll a dice an infinite number of times and calculate the mean across all rolls. But that’s a theoretical quantity. No one can actually roll a dice so many times. The real question here is what happens if we roll a dice a finite number of times and take the mean. In that case we need to compute the sample mean <span class="math inline">\(\overline{Y}\)</span> over all <span class="math inline">\(i \in \{1, \dots, n\}\)</span> dice rolls</p>
+<p><span class="math display">\[\begin{equation*}
+\overline{Y}=\frac{1}{n}\displaystyle\sum_{i=1}^n Y_i,
+\end{equation*}\]</span></p>
+<p>
+whereby <span class="math inline">\(Y_i\)</span> are the points from an individual diceroll.</p>
+<p><span class="math display">\[\\[0.3cm]\]</span></p>
+<p>We can also compute the <strong>population variance of a dice roll</strong> for <span class="math inline">\(Y \in \{1,2,3,4,5,6\}\)</span> (remember: population here means an infinite number of dice rolls):</p>
+<p><span class="math display">\[\begin{equation*}
+\sigma_Y^2=\frac{1}{6} \displaystyle\sum_{i=1}^6 (Y_i-\mu_Y)^2=\approx 2.92.
+\end{equation*}\]</span></p>
+<p>Need a <em>refresher of expected value and variance? Check out this video</em>: <a href="https://www.youtube.com/watch?v=OvTEhNL96v0">https://www.youtube.com/watch?v=OvTEhNL96v0</a>.</p>
 <div id="sampling-distribution-in-very-small-samples" class="section level3 unnumbered hasAnchor">
 <h3>Sampling distribution in very small samples<a href="statistics-refresher.html#sampling-distribution-in-very-small-samples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s start with a small sample size: we roll two dice, compute the mean, roll two dice, compute the mean, and so on. Figure <a href="statistics-refresher.html#fig:diceroll2">1.1</a> shows the result of this exercise with 200 samples (i.e. 200 times we roll two dice and compute the mean). The orange panels at the top show the points of the two dice. With every sample of size two, we add a new mean to the distribution shown in the panel at the bottom (the grey line highlights where in the distribution the new mean falls).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:diceroll2"></span>
-<img src="_bookdown_files/diceroll2.gif" alt="Sampling Distribution: Two Dice Rolls per Sample" width="40%" />
+<img src="docs/_bookdown_files/diceroll2.gif" alt="Sampling Distribution: Two Dice Rolls per Sample" width="40%" />
 <p class="caption">
 Figure 1.1: Sampling Distribution: Two Dice Rolls per Sample
 </p>
@@ -151,7 +226,7 @@ Figure 1.1: Sampling Distribution: Two Dice Rolls per Sample
 <h3>Sampling distribution in larger samples<a href="statistics-refresher.html#sampling-distribution-in-larger-samples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Now consider slightly larger samples. In Figure <a href="statistics-refresher.html#fig:diceroll10">1.2</a> the sample size is ten dice rolls.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:diceroll10"></span>
-<img src="_bookdown_files/diceroll10.gif" alt="Sampling Distribution: 10 Dice Rolls per Sample" width="40%" />
+<img src="docs/_bookdown_files/diceroll10.gif" alt="Sampling Distribution: 10 Dice Rolls per Sample" width="40%" />
 <p class="caption">
 Figure 1.2: Sampling Distribution: 10 Dice Rolls per Sample
 </p>
@@ -159,7 +234,7 @@ Figure 1.2: Sampling Distribution: 10 Dice Rolls per Sample
 <p>As was the case with samples of two dice rolls, we get a sampling distribution that is roughly symmetric around 3.5 and has a bell shape. What is different is that the distribution is a lot tighter around 3.5, which means that there are fewer extreme values than with samples of two dice. This should not be surprising. Consider a sample mean of 1, which only occurs if all dice yield one point. When we roll two dice, it is a lot more likely to have all ones than when we roll ten dice.</p>
 <p>In Figure <a href="statistics-refresher.html#fig:diceroll100">1.3</a> we go even further and roll 100 dice at a time. Think about this like us pouring a bucket with 100 dice on the floor, calculating the mean, putting the dice back into the bucket, and starting again. Luckily, we can do this on a computer and don’t have to waste our time returning dice to a bucket.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:diceroll100"></span>
-<img src="_bookdown_files/diceroll100.gif" alt="Sampling Distribution: 100 Dice Rolls per Sample" width="40%" />
+<img src="docs/_bookdown_files/diceroll100.gif" alt="Sampling Distribution: 100 Dice Rolls per Sample" width="40%" />
 <p class="caption">
 Figure 1.3: Sampling Distribution: 100 Dice Rolls per Sample
 </p>
@@ -191,23 +266,87 @@ As the <em>sample size <span class="math inline">\(n\)</span> increases</em> eac
 <p><span class="math display">\[\\[0.3cm]\]</span></p>
 <p>The question is when is a sample <em>large enough</em>? The answer to this question unfortunately is <em>it depends</em>. We will later learn that samples greater than <span class="math inline">\(30\)</span> tend to have favourable properties, but in empirical applications we would need much greater samples than that.</p>
 </div>
+<div id="sampling-distribution-bottom-line" class="section level3 unnumbered hasAnchor">
+<h3>Sampling Distribution: Bottom Line<a href="statistics-refresher.html#sampling-distribution-bottom-line" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If we draw many random samples from a population and calculate a statistic in each random sample (such as the mean, variance, or the correlation between two variables), we will get <strong>a different value for this statistic in each sample</strong>. The distribution of these statistics is called the <strong>sampling distribution</strong>. If we have true random sampling, the sampling distribution of the mean has the following properties (for an infinite number of samples of size <span class="math inline">\(n\)</span>):</p>
+<ul>
+<li>Sampling mean: <span class="math inline">\(E(\overline{Y})=\mu_Y\)</span></li>
+<li>Sampling variance <span class="math inline">\(Var(\overline{Y})=\frac{\sigma_Y^2}{n}\)</span>.</li>
+</ul>
+<p>These properties are very useful for statistical analysis because they tell us that the <strong>sampling distribution of the mean always follows the same logic</strong> regardless whether the underlying variable is points of a dice roll or a coin flip, a person’s height, IQ, or wage. As long as we draw random samples, we know what the mean and variance of the sampling distribution look like.</p>
+</div>
 </div>
 <div id="the-law-of-large-numbers-and-consistency-of-an-estimator" class="section level2 hasAnchor" number="1.3">
 <h2><span class="header-section-number">1.3</span> The Law of Large Numbers and Consistency of an Estimator<a href="statistics-refresher.html#the-law-of-large-numbers-and-consistency-of-an-estimator" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>What we observed in Figure <a href="statistics-refresher.html#fig:histsampling">1.4</a> is the result of the <strong>Law of Large Numbers (LLN)</strong>. According to the LLN, if we take an infinite number of random samples and take the sample mean <span class="math inline">\(\overline{Y}\)</span> in each sample, then the average of all sample means, <span class="math inline">\(E(\overline{Y})\)</span> converges to the true population mean <span class="math inline">\(\mu_Y\)</span>.</p>
 <p>We can see this in Figure <a href="statistics-refresher.html#fig:histsampling">1.4</a>. Even with 200 small samples of size 2, the mean of the distribution is close to 3.5. If we were to draw more samples, it would get even closer to the population mean of 3.5. The LLN also implies that as the sample size <span class="math inline">\(n\)</span> increases, each sample mean has a higher probability of being close to the population mean <span class="math inline">\(\mu_Y\)</span>. We can see this in Figure <a href="statistics-refresher.html#fig:histsampling">1.4</a>: the larger <span class="math inline">\(n\)</span> is, the tigther is the distribution around the population mean of 3.5. If the sample was infinitely large, the distribution would collapse onto the vertical line at the population mean of 3.5.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:llngraph"></span>
-<img src="_bookdown_files/lln.gif" alt="Illustration of the LLN" width="50%" />
+<img src="docs/_bookdown_files/lln.gif" alt="Illustration of the LLN" width="50%" />
 <p class="caption">
 Figure 1.5: Illustration of the LLN
 </p>
 </div>
-<p>Figure <a href="statistics-refresher.html#fig:llngraph">1.5</a> illustrates the LLN based on dice rolls with sample sizes 2, 10, 50, 100 and 1000. Each dot is a sample mean, and if two samples have a similar mean we draw dots next to each other. For each sample size, we draw 200 samples. Again, we can make two observations that reflect the LLN:</p>
+<p>Figure <a href="statistics-refresher.html#fig:llngraph">1.5</a> illustrates the LLN based on dice rolls with sample sizes 2, 10, 50, 100 and 1000. Each dot is a sample mean, and if two samples have a similar mean we draw dots next to each other. For each sample size, we draw 200 samples. Again, we can make <strong>two observations that reflect the LLN</strong>:</p>
 <ul>
-<li>no matter what the sample size is, the mean of the distribution is close to the population mean (grey line). You can see this because all distributions are roughly symmetric around 3.5.</li>
-<li>As the sample size gets larger, the individual sample means are getting closer to the population mean.</li>
+<li>no matter what the sample size is, the <strong>mean of the distribution is close to the population mean (grey line)</strong>. You can see this because all distributions are roughly symmetric around 3.5.</li>
+<li>As the <strong>sample size gets larger</strong>, the individual <strong>sample means are getting closer to the population mean</strong>, i.e. the distribution becomes tighter around the population mean.</li>
 </ul>
+</div>
+<div id="the-central-limit-theorem" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> The Central Limit Theorem<a href="statistics-refresher.html#the-central-limit-theorem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>So far, we have established what the mean and variance of the sampling distribution is. But we can go even a step further and determine the shape of the distribution. To do that, we make use of the <strong>Central Limit Theorem (CLT)</strong>.</p>
+<div class="blackbox">
+<div class="center">
+<p><strong>Definition: Central Limit Theorem</strong></p>
+</div>
+<p><strong>Wikipedia says</strong>: <em>The central limit theorem (CLT) establishes that, in many situations, when independent random variables are summed up, their properly normalized sum tends toward a normal distribution even if the original variables themselves are not normally distributed..</em></p>
+<p><strong>In plain English</strong>: Suppose we draw many random samples and in each sample we compute the mean. If the <strong>sample size is large enough</strong>, the <strong>sampling distribution is approximately normal</strong> (this holds for the mean and many other interesting statistics but there are some statistics where the CLT doesn’t hold.)</p>
+</div>
+<p>Formally, for the sampling distribution of <span class="math inline">\(\overline{Y}\)</span> the CLT implies</p>
+<p><span class="math display">\[\begin{equation*}
+\overline{Y} \sim N(\mu_Y, sd=\frac{\sigma_Y}{\sqrt{n}}),
+\end{equation*}\]</span></p>
+<p>
+that is, the sample means are normally distributed with mean <span class="math inline">\(\mu_Y\)</span> and standard deviation <span class="math inline">\(\sigma_Y/\sqrt{n}\)</span>.</p>
+<div id="clt-animations" class="section level3 unnumbered hasAnchor">
+<h3>CLT Animations<a href="statistics-refresher.html#clt-animations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To get a feel for the implications of the Central Limit Theorem, let’s look at some animations. Let’s start with a very small sample size (n=2) in Figure (fig:clt2). With every sample of two dice rolls, we add the mean to the distribution. The histogram shows the relative frequency of each value on the x-axis (i.e. a percentage). For example, if the first mean is 3, then the bin at 3 shows a relative frequency of 100%. If the second sample mean is 5, we add this to the histogram, and we now have a relative frequency of 50% at 3 and 50% at 5. We do this 200 times and see to what extent the histogram converges to the normal distribution.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:clt2"></span>
+<img src="docs/_bookdown_files/diceclt2.gif" alt="CLT: samples of 2 dice rolls" width="40%" />
+<p class="caption">
+Figure 1.6: CLT: samples of 2 dice rolls
+</p>
+</div>
+<p>As we can see, the histogram does not converge to the normal distribution. It is roughly symmetric and bell-shaped but does not follow a normal distribution.</p>
+<p>In Figure (fig:clt10), we consider sample sizes of 10 and 20, respectively. In both cases the histogram moves closer to a normal distribution. Statistical theory tells us that a sample size of 20 is still too small to assume normality. A rule of thumb is that a sample should be larger than 30 observations to justify applying a normal distribution.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="statistics-refresher.html#cb1-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">c</span>(<span class="st">&#39;docs/_bookdown_files/diceclt10.gif&#39;</span>, <span class="st">&#39;docs/_bookdown_files/diceclt20.gif&#39;</span>))</span></code></pre></div>
+<p><img src="docs/_bookdown_files/diceclt10.gif" width="35%" style="display: block; margin: auto;" /><img src="docs/_bookdown_files/diceclt20.gif" width="35%" style="display: block; margin: auto;" /></p>
+<p>In Figure (fig:clt50) we see an animation with samples of 50 dice rolls. Note that the range on the x-axis is narrower here. As we add more and more samples, the histogram gets very close to a normal distribution.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:clt50"></span>
+<img src="docs/_bookdown_files/diceclt50.gif" alt="CLT: samples of 50 dice rolls" width="40%" />
+<p class="caption">
+Figure 1.7: CLT: samples of 50 dice rolls
+</p>
+</div>
+</div>
+<div id="what-is-the-clt-useful-for" class="section level3 unnumbered hasAnchor">
+<h3>What is the CLT Useful for?<a href="statistics-refresher.html#what-is-the-clt-useful-for" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We want to learn something about the population but typically we can only work with a sample. Collecting samples is often expensive, which means that we often only have one sample. If we want to know how much we can learn from this one sample about the population, we need to know what the sampling distribution looks like. This is entirely hypothetical: if we could draw many more samples from the same population, what would the sampling distribution look like? The Central Limit Theorem, along with the Law of Large Numbers can help us make sense of the sampling distribution. We know that its mean coincides with the population mean and we know that it is approximately normally distributed with variance <span class="math inline">\(\sigma_Y/\sqrt{n}\)</span>.</p>
+<p>Most students do not fully embrace how important this insight is and why the CLT makes our life so much easier. No matter what the distribution of <span class="math inline">\(Y\)</span> is, that is, no matter what context or research question we study, thanks to the CLT we always know what the sampling distribution looks like. This means that we can use the same statistical analysis tools no matter what population we study.
+What we typically do is “standardise” the sampling distribution such that the standardised distribution is normal with mean zero and standard deviation one. We do this by subtracting the population mean and dividing by the standard deviation,</p>
+<p><span class="math display">\[\begin{equation*}
+\frac{\overline{Y}-\mu_Y}{\sigma_Y/(\sqrt{n})} \sim N(0,1).
+\end{equation*}\]</span></p>
+<p>When we “standardise” <span class="math inline">\(\overline{Y}\)</span>, we ensure that all the sampling distributions have mean zero and a standard deviation of 1, regardless of the characteristics of the underlying random variable <span class="math inline">\(Y\)</span> and the sample size. The reason for doing this is a practical one. If we did not standardise <span class="math inline">\(\overline\)</span>, we would have to apply a different normal distribution – with a different mean and variance – in every analysis. By standardising, we can move this part to auto-pilot. We can use the same standard normal distribution no matter what we study.</p>
+<p>Figure (fig:cltall) compares the sampling distribution of dice rolls with varying sample sizes to a normal distribution, N(0,1). Each picture shows the distribution of 1,000 samples of a given size, ranging from n=2 to n=200. Once we have sample sizes of 100 and larger, the histogram gets very close to a normal distribution and it would even get closer if we plotted more than 1,000 samples.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:cltall"></span>
+<img src="docs/_bookdown_files/clt.gif" alt="CLT: sampling distribution vs. N(0,1)" width="40%" />
+<p class="caption">
+Figure 1.8: CLT: sampling distribution vs. N(0,1)
+</p>
+</div>
 
+</div>
 </div>
 </div>
             </section>

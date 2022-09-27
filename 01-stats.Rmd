@@ -53,7 +53,30 @@ When students encounter the sampling distribution for the first time, they tend 
 \mu_Y=\frac{1}{6}\times \left(1 + 2 + 3 + 4 + 5 + 6\right)=3.5.
 \end{equation*}
 
-This mean is what we will get if we roll a dice an infinite number of times and calculate the mean across all rolls. But that's a theoretical quantity. No one can actually roll a dice so many times. The real question here is what happens if we roll a dice a finite number of times and take the mean. 
+This mean is what we will get if we roll a dice an infinite number of times and calculate the mean across all rolls. But that's a theoretical quantity. No one can actually roll a dice so many times. The real question here is what happens if we roll a dice a finite number of times and take the mean. In that case we need to compute the sample mean $\overline{Y}$ over all $i \in \{1, \dots, n\}$ dice rolls
+
+
+\begin{equation*}
+\overline{Y}=\frac{1}{n}\displaystyle\sum_{i=1}^n Y_i, 
+\end{equation*}
+
+
+\noindent
+whereby $Y_i$ are the points from an individual diceroll.
+
+$$\\[0.3cm]$$
+
+We can also compute the **population variance of a dice roll** for $Y \in \{1,2,3,4,5,6\}$ (remember: population here means an infinite number of dice rolls):
+
+\begin{equation*}
+\sigma_Y^2=\frac{1}{6} \displaystyle\sum_{i=1}^6 (Y_i-\mu_Y)^2=\approx 2.92.
+\end{equation*}
+
+
+
+
+
+Need a _refresher of expected value and variance? Check out this video_: [https://www.youtube.com/watch?v=OvTEhNL96v0](https://www.youtube.com/watch?v=OvTEhNL96v0). 
 
 ### Sampling distribution in very small samples {-}
 
@@ -61,7 +84,7 @@ Let's start with a small sample size: we roll two dice, compute the mean, roll t
 
 
 ```{r diceroll2, out.width = '40%', echo=FALSE, fig.align="center", fig.cap="Sampling Distribution: Two Dice Rolls per Sample"}
- knitr::include_graphics('_bookdown_files/diceroll2.gif')
+ knitr::include_graphics('docs/_bookdown_files/diceroll2.gif')
 ```
 
 The distribution that emerges -- the sampling distribution -- is quite interesting. The distribution seems to be fairly symmetric around the population mean of 3.5, and there are more samples with means between 2 and 4 and fewer with means smaller than 2 or larger than 4. This distribution should not come as a surprise because there are more combinations that yield a sample mean of 3.5 -- $\{3,4\}$, $\{2,5\}$, $\{1,6\}$ all yield a sample mean of 3.5, whereas a sample mean of 1 can only occur with the combination $\{1,1\}$. 
@@ -72,7 +95,7 @@ Now consider slightly larger samples. In Figure \@ref(fig:diceroll10) the sample
 
 
 ```{r diceroll10, out.width = '40%', echo=FALSE, fig.align="center", fig.cap="Sampling Distribution: 10 Dice Rolls per Sample"}
-knitr::include_graphics('_bookdown_files/diceroll10.gif')
+knitr::include_graphics('docs/_bookdown_files/diceroll10.gif')
 ```
 
 
@@ -82,7 +105,7 @@ In Figure \@ref(fig:diceroll100) we go even further and roll 100 dice at a time.
 
 
 ```{r diceroll100, out.width = '40%', echo=FALSE, fig.align="center", fig.cap="Sampling Distribution: 100 Dice Rolls per Sample"}
-knitr::include_graphics('_bookdown_files/diceroll100.gif')
+knitr::include_graphics('docs/_bookdown_files/diceroll100.gif')
 ```
 
 Again, the same picture emerges, namely a bell-shaped sampling distribution that is centered on the population mean of 3.5. With a sample size of 100, almost all samples have a mean close to 3.5. 
@@ -168,6 +191,19 @@ $$\\[0.3cm]$$
 The question is when is a sample _large enough_? The answer to this question unfortunately is _it depends_. We will later learn that samples greater than $30$ tend to have favourable properties, but in empirical applications we would need much greater samples than that.
 
 
+### Sampling Distribution: Bottom Line {-}
+
+If we draw many random samples from a population and calculate a statistic in each random sample (such as the mean, variance, or the correlation between two variables), we will get **a different value for this statistic in each sample**. The distribution of these statistics is called the **sampling distribution**. If we have true random sampling, the sampling distribution of the mean has the following properties (for an infinite number of samples of size $n$): 
+
+- Sampling mean: $E(\overline{Y})=\mu_Y$
+- Sampling variance $Var(\overline{Y})=\frac{\sigma_Y^2}{n}$.
+
+
+These properties are very useful for statistical analysis because they tell us that the **sampling distribution of the mean always follows the same logic** regardless whether the underlying variable is points of a dice roll or a coin flip, a person's height, IQ, or wage. As long as we draw random samples, we know what the mean and variance of the sampling distribution look like. 
+
+
+
+
 ## The Law of Large Numbers and Consistency of an Estimator
 
 
@@ -176,7 +212,7 @@ What we observed in Figure \@ref(fig:histsampling) is the result of the **Law of
 We can see this in Figure \@ref(fig:histsampling). Even with 200 small samples of size 2, the mean of the distribution is close to 3.5. If we were to draw more samples, it would get even closer to the population mean of 3.5. The LLN also implies that as the sample size $n$ increases, each sample mean has a higher probability of being close to the population mean $\mu_Y$. We can see this in Figure \@ref(fig:histsampling): the larger $n$ is, the tigther is the distribution around the population mean of 3.5. If the sample was infinitely large, the distribution would collapse onto the vertical line at the population mean of 3.5.
 
 ```{r llngraph, out.width = '50%', echo=FALSE, fig.align="center", fig.cap="Illustration of the LLN"}
-knitr::include_graphics('_bookdown_files/lln.gif')
+knitr::include_graphics('docs/_bookdown_files/lln.gif')
 ```
 
 Figure \@ref(fig:llngraph) illustrates the LLN based on dice rolls with sample sizes 2, 10, 50, 100 and 1000. Each dot is a sample mean, and if two samples have a similar mean we draw dots next to each other. For each sample size, we draw 200 samples. Again, we can make **two observations that reflect the LLN**: 
@@ -187,4 +223,68 @@ Figure \@ref(fig:llngraph) illustrates the LLN based on dice rolls with sample s
 
 ## The Central Limit Theorem
 
+So far, we have established what the mean and variance of the sampling distribution is. But we can go even a step further and determine the shape of the distribution. To do that, we make use of the **Central Limit Theorem (CLT)**.
+
+:::: {.blackbox data-latex=""}
+::: {.center data-latex=""}
+**Definition: Central Limit Theorem**
+:::
+**Wikipedia says**: _The central limit theorem (CLT) establishes that, in many situations, when independent random variables are summed up, their properly normalized sum tends toward a normal distribution even if the original variables themselves are not normally distributed.._
+
+**In plain English**: Suppose we draw many random samples and in each sample we compute the mean. If the **sample size is large enough**, the **sampling distribution is approximately normal** (this holds for the mean and many other interesting statistics but there are some statistics where the CLT doesn't hold.)
+::::
+
+
+Formally, for the sampling distribution of $\overline{Y}$ the CLT implies
+
+\begin{equation*}
+\overline{Y} \sim N(\mu_Y, sd=\frac{\sigma_Y}{\sqrt{n}}),
+\end{equation*}
+
+
+\noindent
+that is, the sample means are normally distributed with mean $\mu_Y$ and standard deviation $\sigma_Y/\sqrt{n}$.
+
+### CLT Animations {-}
+
+To get a feel for the implications of the Central Limit Theorem, let's look at some animations. Let's start with a very small sample size (n=2) in Figure \ref@(fig:clt2). With every sample of two dice rolls, we add the mean to the distribution. The histogram shows the relative frequency of each value on the x-axis (i.e. a percentage). For example, if the first mean is 3, then the bin at 3 shows a relative frequency of 100%. If the second sample mean is 5, we add this to the histogram, and we now have a relative frequency of 50% at 3 and 50% at 5. We do this 200 times and see to what extent the histogram converges to the normal distribution. 
+
+```{r clt2, out.width = '40%', echo=FALSE, fig.align="center", fig.cap="CLT: samples of 2 dice rolls"}
+knitr::include_graphics('docs/_bookdown_files/diceclt2.gif')
+```
+
+As we can see, the histogram does not converge to the normal distribution. It is roughly symmetric and bell-shaped but does not follow a normal distribution. 
+
+In Figure \ref@(fig:clt10), we consider sample sizes of 10 and 20, respectively. In both cases the histogram moves closer to a normal distribution. Statistical theory tells us that a sample size of 20 is still too small to assume normality. A rule of thumb is that a sample should be larger than 30 observations to justify applying a normal distribution. 
+
+```{r clt10, fig.show = "hold", out.width = "35%", fig.align = "center"}
+knitr::include_graphics(c('docs/_bookdown_files/diceclt10.gif', 'docs/_bookdown_files/diceclt20.gif'))
+```
+
+In Figure \ref@(fig:clt50) we see an animation with samples of 50 dice rolls. Note that the range on the x-axis is narrower here. As we add more and more samples, the histogram gets very close to a normal distribution. 
+
+```{r clt50, out.width = '40%', echo=FALSE, fig.align="center", fig.cap="CLT: samples of 50 dice rolls"}
+knitr::include_graphics('docs/_bookdown_files/diceclt50.gif')
+```
+
+
+### What is the CLT Useful for? {-}
+
+We want to learn something about the population but typically we can only work with a sample. Collecting samples is often expensive, which means that we often only have one sample. If we want to know how much we can learn from this one sample about the population, we need to know what the sampling distribution looks like. This is entirely hypothetical: if we could draw many more samples from the same population, what would the sampling distribution look like? The Central Limit Theorem, along with the Law of Large Numbers can help us make sense of the sampling distribution. We know that its mean coincides with the population mean and we know that it is approximately normally distributed with variance $\sigma_Y/\sqrt{n}$. 
+
+Most students do not fully embrace how important this insight is and why the CLT makes our life so much easier. No matter what the distribution of $Y$ is, that is, no matter what context or research question we study, thanks to the CLT we always know what the sampling distribution looks like. This means that we can use the same statistical analysis tools no matter what population we study. 
+What we typically do is "standardise" the sampling distribution such that the standardised distribution is normal with mean zero and standard deviation one. We do this by subtracting the population mean and dividing by the standard deviation, 
+
+\begin{equation*}
+\frac{\overline{Y}-\mu_Y}{\sigma_Y/(\sqrt{n})} \sim N(0,1). 
+\end{equation*}
+
+When we "standardise" $\overline{Y}$, we ensure that all the sampling distributions have mean zero and a standard deviation of 1, regardless of the characteristics of the underlying random variable $Y$ and the sample size. The reason for doing this is a practical one. If we did not standardise $\overline$, we would have to apply a different normal distribution -- with a different mean and variance -- in every analysis. By standardising, we can move this part to auto-pilot. We can use the same standard normal distribution no matter what we study. 
+
+
+Figure \ref@(fig:cltall) compares the sampling distribution of dice rolls with varying sample sizes to a normal distribution, N(0,1). Each picture shows the distribution of 1,000 samples of a given size, ranging from n=2 to n=200. Once we have sample sizes of 100 and larger, the histogram gets very close to a normal distribution and it would even get closer if we plotted more than 1,000 samples. 
+
+```{r cltall, out.width = '40%', echo=FALSE, fig.align="center", fig.cap="CLT: sampling distribution vs. N(0,1)"}
+knitr::include_graphics('docs/_bookdown_files/clt.gif')
+```
 

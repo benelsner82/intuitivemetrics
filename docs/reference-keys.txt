@@ -4,7 +4,11 @@ fig:diceroll10
 fig:diceroll100
 fig:histsampling
 fig:llngraph
+fig:clt2
+fig:clt50
+fig:cltall
 statistics-refresher
 lingo-estimators-estimates-and-all-that
 the-sampling-distribution
 the-law-of-large-numbers-and-consistency-of-an-estimator
+the-central-limit-theorem

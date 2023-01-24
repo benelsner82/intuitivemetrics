@@ -1,0 +1,253 @@
+---
+title: ""
+linestretch: 1.5
+fontsize: 12pt
+output:
+  pdf_document: 
+    latex_engine: xelatex
+    includes:
+        in_header: "ucdtemplate.tex"
+---
+
+```{r setup, include=FALSE, eval=TRUE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, results=TRUE)
+rm(list=ls())
+ucd <- 0
+
+# Packages
+library(stargazer)
+library(tidyverse)
+
+
+  if (ucd == 1) {
+    path <- "C:/Users/ben_elsner/Lectures/econometrics-ug"
+  } else {
+    path <- "/Users/ben_elsner/econometrics-ug"
+  }
+
+```
+
+```{r basicdata, include=FALSE}
+library(wooldridge)
+data.frame(data('sleep75'))
+sleepdata <- sleep75 %>%
+  select(age, educ, earns74, sleep, yngkid) %>%
+  rename(earns=earns74)
+```
+
+
+\includepdf{cover_autumn2022.pdf}
+
+\setcounter{page}{2}
+# Question 1: True-False Questions (16 Points)
+
+**For each part, write out “True” or “False”. NO EXPLANATION NECESSARY**
+
+
+**1.1** Consider a regression $Y=\beta_0 + \beta_1 X_1 + \beta_2 X_2 + u$. If $cov(u,X_2) \neq 0$ and $cov(X_1, X_2)=0$, omitting $X_2$ leads to omitted variable bias in the estimation of $\beta_1$. 
+
+\medskip
+
+**1.2** In a regression $Y=\beta_0 + \beta_1X + u$, if the variance of the error term $u$ depends on $X$, the standard errors need to be adjusted for heteroskedasticity.
+
+\medskip
+
+**1.3** Consider a regression $wage=\beta_0 + \beta_1 \; education + \beta_2  \; ability + u$. If $cov(u,ability) > 0$ and $cov(education, ability)>0$, omitting $ability$ causes an upward bias in the estimator for $\beta_1$. 
+
+\medskip
+
+**1.4** Consider a regression $Y=\beta_0 + \beta_1X + u$. $cov(u,X)=0$ implies that $E(u|X)=0$. 
+
+\medskip
+
+**1.5** Consistency of an estimator means that the average estimate across many samples corresponds to the true population parameter. 
+
+\medskip
+
+**1.6** You obtain a 90\% confidence interval $\beta_1 \in [1,3]$. This means that the probability that $\beta_1$ is between 1 and 3 is 90\%. 
+
+\medskip
+
+**1.7** As the sample sizes increases, the sampling distribution of the OLS estimator converges to a normal distribution. 
+
+\medskip
+
+**1.8** Consider a regression $Y=\beta_0 + \beta_1 X_1 + \beta_2 X_2 + u$. If $X_2$ is randomly assigned to participants in an experiment, we should expect no correlation between $X_2$ and $X_1$. 
+
+
+
+
+\newpage
+# Question 2: Interpreting R Code (12 Points)
+
+Consider the following dataset of men's sleep duration (`sleepdata.dta`, to be used here and in Question 3): 
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Variable name} & \textbf{Description} \\
+age & Person's age \\
+educ & Years of education \\
+earns & Annual earnings in USC \\
+sleep & Minutes of sleep per week\\
+yngkid & Dummy that equals 1 if the person has a young child \\
+\hline
+\end{tabular}
+
+\medskip
+
+**2.1 (4 points)** Describe what the following code chunk does in R.
+
+```{r, eval=FALSE, include=TRUE}
+mediansleep <- quantile(sleepdata$sleep, probs=0.5)
+newdata <- sleepdata %>%
+  filter(earns>0) %>%
+  mutate(goodsleeper=ifelse(sleep > mediansleep, 0, 1))
+```
+
+
+\medskip
+
+**2.2 (3 points)** 
+Describe what the following code chunk does in R.
+
+
+```{r, eval=FALSE, include=TRUE}
+newdata %>%   group_by(goodsleeper) %>%
+  summarise(mean(earns))
+```
+
+\medskip
+
+**2.3 (5 points)** 
+Describe what the following code chunk does in R.
+
+
+```{r, eval=FALSE, include=TRUE}
+newdata1 <- newdata %>%   
+  mutate(older = ifelse(age>50, 1,0), logearns=log(earns))
+
+t.test(sleep ~ older, data=newdata1)
+lm(sleep ~ age + logearns, data=newdata1)
+```
+
+\medskip
+
+
+\newpage
+
+# Question 3: Theory & Application (32 Points; 4 points per question)
+
+
+
+Consider the dataset `sleepdata.dta` introduced in Question 2. The researcher created new variables 
+
+- `logearns=log(earns)`. We assume here that every person has `earns>0`.
+- `sleepday` and `lsleepday`: sleep minutes per day and the log of this variable; 
+- Binary indicators for whether someone's income is in the top third, middle third or bottom third of the income distribution.  
+
+
+```{r, include=F}
+regdata <- sleepdata %>%
+  mutate(logearns=log(earns+1),
+         sleepday=sleep/(7),
+         logsleepday=log(sleepday),
+         bottomthird=ifelse(earns<quantile(earns, probs=0.33), 1, 0),
+         middlethird=ifelse(earns<quantile(earns, probs=0.66) & earns>quantile(earns, probs=0.33), 1, 0),
+         topthird=ifelse(earns>quantile(earns, probs=0.66), 1, 0))
+
+reg1 <- lm(sleepday ~ logearns, data=regdata)
+reg2 <- lm(sleepday ~ logearns + age, data=regdata)
+reg3 <- lm(logsleepday ~ logearns + age, data=regdata)
+reg4 <- lm(sleepday ~ topthird + middlethird, data=regdata)
+reg5 <- lm(sleepday ~ logearns + yngkid + logearns*yngkid, data=regdata)
+```
+
+```{r, results="asis", echo=FALSE}
+stargazer(reg1, reg2, reg3, reg4, reg5,
+          type='latex', 
+          header=FALSE,
+          omit.stat=c("LL","ser","f"),
+          digits=2,
+          covariate.labels=c(NA, NA, NA, NA, NA, "logearns*yngkid", NA), 
+          dep.var.labels.include = FALSE,
+          column.labels=c("Sleepday", "Sleepday", "Log(sleepday)", "Sleepday", "Sleepday")
+          )
+```
+
+**3.1** The regression output is shown in Table 1. Interpret the intercept and slope in Column (1), and comment on the statistical significance of the slope coefficient. 
+
+\medskip
+
+**3.2** In Table 1, interpret both slope coefficients in Column (2) and comment on the statistical significance of both coefficients. 
+
+\medskip
+
+**3.3** The coefficient of `logearns` decreases in absolute value between Columns (1) and (2). Assuming that age has a negative effect on sleep duration, what does this result imply for the correlation between earnings and age? You can use the omitted variable bias formula to formulate your argument (but don't have to).
+
+\medskip
+
+\begin{equation*}
+\widehat{\beta_1}^{Col1}-\widehat{\beta_1}^{Col2}=\beta_2 \times \frac{cov(logearns, age)}{Var(logearns)}.
+\end{equation*}
+
+**3.4** In Column (3), the outcome variable is the log sleep duration per day. Interpret the magnitude and statistical significance of both slope coefficients. 
+
+\medskip
+
+**3.5** In Column (4), we regress sleep duration on binary indicators for whether someone is in the middle or top third of the earnings distribution. Interpret the coefficients of the intercept and both indicators in terms of size and statistical significance. 
+
+\medskip
+
+
+**3.6** Suppose in Column (4) that the base category was `middlethird` and the dummies included as regressors were `bottomthird` and `topthird`. What would be the coefficients of the intercept and the dummy variables `bottomthird` and `topthird` in this case?
+
+\medskip 
+
+
+**3.7** Suppose in Column (4) that we included a constant and three dummy variables `middlethird`, `bottomthird` and `topthird` in the regression. What is the coefficient of `topthird` in this case?
+
+\medskip
+
+
+**3.8** In Column (5), we run the following regression:
+
+\begin{equation*}
+sleepday=\beta_0 + \beta_1 logearns + \beta_2 yngkid + \beta_3 logearns*yngkid + u.
+\end{equation*}
+
+
+Provide an interpretation of the estimates $\widehat{\beta_1}$ and $\widehat{\beta_3}$ in terms of size and statistical significance. 
+
+
+
+
+
+\newpage
+
+# Question 4: Theory  (20 Points; 5 points per question)
+
+
+**4.1** Suppose you want to study the impact of exporting on firm profits (i.e. the question is *If a firm exports, does this increase profits?*). The CSO provides you with data from a random sample of Irish firms; for each firm you know whether they had any exports or not, and how much their profits were in the last tax year. Write down the regression equation that would allow you to answer this question and interpret all the variables and parameters of this equation.
+
+\medskip
+
+**4.2** In the example of **4.1**, why do we likely have omitted variable bias? Propose one omitted variable and explain whether the omission of this variable leads to an upward- or downward bias. 
+
+\medskip
+
+
+**4.3** Suppose you want to study whether exporting has a greater impact on profits among multinational firms than among domestically owned firms. Write down the regression equation that allows you to study this question. Explain which coefficients give you an answer to the question. 
+
+
+
+
+**4.4** You obtain a different data set that only contains information on exporters. The amount of exports in the last tax year is now a continous variable `exports`. Consider the following regression: 
+
+\begin{equation*}
+profit=\beta_0 + \beta_1 exports + \beta_2 multi + \beta_3 exports \times multi + u.
+\end{equation*}
+
+Explain how you can use this equation to determine the intercept and slope for domestically owned exporters ($multi=0$) and those owned by multinationals ($multi=1$). Moreover, interpret the coefficient $\beta_3$.
+
+
+

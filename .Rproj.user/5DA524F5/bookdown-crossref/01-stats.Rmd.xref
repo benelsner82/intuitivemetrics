@@ -7,7 +7,13 @@ h3:sampling-distribution-in-larger-samples Sampling distribution in larger sampl
 fig:diceroll10 Sampling Distribution: 10 Dice Rolls per Sample
 fig:diceroll100 Sampling Distribution: 100 Dice Rolls per Sample
 fig:histsampling Sampling Distribution of Means (2, 10, 100 dice rolls, 200 samples each)
+h3:sampling-distribution-bottom-line Sampling Distribution: Bottom Line
 h2:the-law-of-large-numbers-and-consistency-of-an-estimator The Law of Large Numbers and Consistency of an Estimator
 fig:llngraph Illustration of the LLN
 h2:the-central-limit-theorem The Central Limit Theorem
+h3:clt-animations CLT Animations
+fig:clt2 CLT: samples of 2 dice rolls
+fig:clt50 CLT: samples of 50 dice rolls
+h3:what-is-the-clt-useful-for What is the CLT Useful for?
+fig:cltall CLT: sampling distribution vs. N(0,1)
 
